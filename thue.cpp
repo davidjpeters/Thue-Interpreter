@@ -58,7 +58,16 @@ void applyRules() {
         size_t chosenIndex = applicableRules[dist(gen)];
 
         Rule& rule = rules[chosenIndex];
-        size_t pos = state.find(rule.lhs);
+        
+        // find all instances of lhs in the string
+        std::vector<size_t> positions = {};
+        for (size_t i = 0; i < state.length() - rule.lhs.length(); ++i) {
+            if (state.substr(i, rule.lhs.length()) == rule.lhs) {
+                positions.push_back(i);
+            }
+        }
+        std::uniform_int_distribution<size_t> chosenInstance(0, positions.size() - 1);
+        size_t pos = positions[chosenInstance(gen)];
 
         if (rule.rhs.empty()) {
             std::cout << rule.rhs << "\n"; // Print rather than replace
