@@ -40,3 +40,6 @@ Compile the program and run with:
 ```
 ./<executable name> <filename>
 ```
+---
+##### NOTE:
+You can add the "-step" flag to show the mutations of the string at each iteration
