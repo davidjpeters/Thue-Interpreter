@@ -40,7 +40,7 @@ void loadThueFile(const std::string& filename) {
     file.close();
 }
 
-void applyRules() {
+void applyRules(bool step) {
     std::random_device rd;
     std::mt19937 gen(rd());
 
@@ -74,19 +74,24 @@ void applyRules() {
         } else {
             state.replace(pos, rule.lhs.length(), rule.rhs);
         }
-        std::cout << state << std::endl;
+        if (step) {
+            std::cout << state << std::endl;
+        }
     }
     std::cout << "Final State: " << state << "\n";
 }
 
 int main(int argc, char* argv[]) {
-
+    bool step = false;
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " <filename>\n";
         return 1; 
     }
+    if (argc == 3 && std::string(argv[2]) == "-step") {
+        step = true;
+    }
     loadThueFile(argv[1]);
-    applyRules();
+    applyRules(step);
 
     return 0;
 }
