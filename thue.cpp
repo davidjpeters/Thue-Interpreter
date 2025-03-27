@@ -71,7 +71,9 @@ void applyRules(bool step) {
 
         if (rule.rhs.empty()) {
             std::cout << rule.rhs << "\n"; // Print rather than replace
-        } else {
+        } else if (rule.rhs[0] == '~') {
+            std::cout << rule.rhs << "\n";
+        } else{
             state.replace(pos, rule.lhs.length(), rule.rhs);
         }
         if (step) {
